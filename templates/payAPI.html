@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <title>Подтверждение платежа</title>
+</head>
+<body>
+
+
+
+
+<div class="container">
+    <h1>Подтверждение платежа</h1>
+    <br>
+    {% if text_r["result"]=='error' %}
+    <p>Ошибка: {{ text_r["message"] }} </p>
+    {% endif %}
+
+   <table class="table table-bordered">
+    <thead>
+    </thead>
+    <tbody>
+
+         {% if text_r["result"]=='error' and   text_r["message"]=='Invalid invoice amount'  %}
+          <tr class="danger">
+            <td>Сумма:</td>
+            <td>{{ data["summ"] }}</td>
+          </tr>
+            {% else %}
+               <tr>
+            <td>Сумма:</td>
+            <td>{{ data["summ"] }}</td>
+          </tr>
+            {% endif %}
+
+      <tr>
+        <td>Валюта:</td>
+        <td>{{ data["sel"]}}</td>
+      </tr>
+      <tr>
+        <td>Invoice_ID/log_ID:</td>
+        <td>{{ id }}</td>
+      </tr>
+    <tr>
+        <td>Shop_ID</td>
+        <td>300966</td>
+      </tr>
+        <tr>
+        <td>Sign</td>
+        <td>{{ sign }}</td>
+      </tr>
+        </tr>
+        <tr>
+        <td>Описание</td>
+        <td>{{ data["txt"]}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+    {% if text_r["result"]=='ok' and text_r["message"]=='Ok' %}
+<table class="table table-bordered">
+    <thead>
+    </thead>
+    <tbody>
+      <tr>
+        <td>WMI_PTENABLED:</td>
+        <td>{{text_r["data"]["data"]["WMI_PTENABLED"]}}</td>
+      </tr>
+      <tr>
+        <td>WMI_PAYMENT_NO:</td>
+        <td>{{text_r["data"]["data"]["WMI_PAYMENT_NO"]}}</td>
+      </tr>
+
+                  <tr>
+        <td>WMI_CURRENCY_ID:</td>
+        <td>{{text_r["data"]["data"]["WMI_CURRENCY_ID"]}}</td>
+      </tr
+            <tr>
+        <td>WMI_PAYMENT_AMOUNT:</td>
+        <td>{{text_r["data"]["data"]["WMI_PAYMENT_AMOUNT"]}}</td>
+      </tr>
+
+            <tr>
+        <td>WMI_MERCHANT_ID:</td>
+        <td>{{text_r["data"]["data"]["WMI_MERCHANT_ID"]}}</td>
+      </tr>
+        </tr>
+            <tr>
+        <td>WMI_SIGNATURE:</td>
+        <td>{{text_r["data"]["data"]["WMI_SIGNATURE"]}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+{% endif %}
+
+
+        <div id="resp">
+        <p>respond</p>
+             <p>{{ text_r }}</p>
+        </div>
+
+<form name="data" method="{{text_r["data"]["method"]}}" action="{{text_r["data"]["source"]}}"  enctype="application/json" accept-charset="UTF-8"  class="form-horizontal" role="form">
+<input style="visibility:hidden" name="WMI_CURRENCY_ID" value="{{text_r["data"]["data"]["WMI_CURRENCY_ID"]}}"/>
+<input style="visibility:hidden" name="WMI_MERCHANT_ID" value=" {{text_r["data"]["data"]["WMI_MERCHANT_ID"]}} "/>
+<input  style="visibility:hidden" name="WMI_PAYMENT_AMOUNT" value="{{text_r["data"]["data"]["WMI_PAYMENT_AMOUNT"]}}"/>
+<input style="visibility:hidden"  name="WMI_PAYMENT_NO" value="{{text_r["data"]["data"]["WMI_PAYMENT_NO"]}}"/>
+<input style="visibility:hidden" name="WMI_PTENABLED" value="{{text_r["data"]["data"]["WMI_PTENABLED"]}}"/>
+<input  style="visibility:hidden" name="WMI_SIGNATURE" value="{{text_r["data"]["data"]["WMI_SIGNATURE"]}}"/>
+
+    <div class="form-group">
+              <div class="col-sm-12">
+                  {% if text_r["result"]=='error' %}
+                    <input  type="button" class="btn btn-info" onclick="history.back();" value="Назад"/>
+                  {% else %}
+                    <button type="submit" class="btn btn-info">Подтвердить</button>
+                  {% endif %}
+              </div>
+        </div>
+
+</form>
+
+    </div>
+
+</body>
+</html>

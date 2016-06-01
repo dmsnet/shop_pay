@@ -1,0 +1,26 @@
+
+CREATE DATABASE db_test
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'ru_UA.UTF-8'
+       LC_CTYPE = 'ru_UA.UTF-8'
+       CONNECTION LIMIT = -1;
+
+
+
+CREATE TABLE tb_pay_log
+(
+  id serial NOT NULL,
+  sum money NOT NULL,
+  ccy character varying(3) NOT NULL,
+  descr text,
+  status character varying(10),
+  created_at timestamp with time zone NOT NULL DEFAULT now(),
+  updated_at timestamp with time zone,
+  CONSTRAINT tb_pay_log_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+

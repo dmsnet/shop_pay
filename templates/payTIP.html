@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <title>Подтверждение платежа</title>
+</head>
+<body>
+
+
+
+
+
+<div class="container">
+    <h1>Подтверждение платежа</h1>
+    <br>
+
+
+   <table class="table table-bordered">
+    <thead>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Сумма:</td>
+        <td>{{ data["summ"] }}</td>
+      </tr>
+      <tr>
+        <td>Валюта:</td>
+        <td>{{ data["sel"]}}</td>
+      </tr>
+      <tr>
+        <td>Invoice_ID/log_ID:</td>
+        <td>{{ id }}</td>
+      </tr>
+    <tr>
+        <td>Shop_ID</td>
+        <td>300966</td>
+      </tr>
+        <tr>
+        <td>Sign</td>
+        <td>{{ sign }}</td>
+      </tr>
+        </tr>
+        <tr>
+        <td>Описание</td>
+        <td>{{ data["txt"]}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+<form name="Pay" method="post" action="https://tip.pay-trio.com/ru/" accept-charset="UTF-8"  class="form-horizontal" role="form">
+<input style="visibility:hidden" name="amount" value="{{ data["summ"] }}" />
+<input  style="visibility:hidden" name="currency" value="643" />
+<input style="visibility:hidden" name="shop_id" value="300966" />
+<input style="visibility:hidden" name="sign" value="{{ sign }}" />
+<input style="visibility:hidden" name="shop_invoice_id" value="{{ id }}" />
+<input  style="visibility:hidden" name="description" value="{{ data["txt"]}}" />
+
+    <div class="form-group">
+              <div class="col-sm-12">
+                    <button type="submit" class="btn btn-info">Подтвердить</button>
+              </div>
+        </div>
+
+</form>
+
+</div>
+
+</body>
+</html>
